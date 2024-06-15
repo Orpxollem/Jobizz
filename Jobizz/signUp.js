@@ -11,7 +11,7 @@ export default function SignUp({ navigation }) {
   const [email, setEmail] = useState('');
 
   const handleSignUp = () => {
-    navigation.navigate('SignUp');
+    navigation.navigate('Home Page');
   };
 
   return(
@@ -26,7 +26,7 @@ export default function SignUp({ navigation }) {
         </View>
 
         <View style={styles.loginButton}>
-          <Button title='Log in' color='white'/>
+          <Button title='Log in' color='white' onPress={handleSignUp}/>
         </View>
 
         <View style={{flexDirection: 'row', alignItems: 'center', marginTop: 75}}>
