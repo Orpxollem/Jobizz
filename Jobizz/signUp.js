@@ -38,48 +38,15 @@ export default function SignUp({ navigation }) {
         </View>
 
         <View style={{flexDirection: 'row', marginTop: 10, paddingHorizontal:50}}>
-          <Pressable 
-            style={({pressed}) => [
-              {
-                backgroundColor: pressed ? 'rgba(0,0,0,0.05)' : 'white',
-                borderRadius: 30,
-                marginTop: 8,
-                width: 70,
-                height: 100,
-                marginRight: 20,
-              }
-            ]}
-          >
+          <View style={{marginRight: 25}}>
             <Image source={appleLogo} style={{width: 70, height: 120}}/>
-          </Pressable>
-          <Pressable 
-            style={({pressed}) => [
-              {
-                backgroundColor: pressed ? 'rgba(0,0,0,0.05)' : 'white',
-                borderRadius: 30,
-                marginTop: 8,
-                width: 70,
-                height: 100,
-                marginRight: 20,
-              }
-            ]}
-          >
+          </View>
+          <View style={{marginRight: 25}}>
             <Image source={googleLogo} style={{width: 70, height: 120}}/>
-          </Pressable>
-          <Pressable 
-            style={({pressed}) => [
-              {
-                backgroundColor: pressed ? 'rgba(0,0,0,0.05)' : 'white',
-                borderRadius: 30,
-                marginTop: 8,
-                width: 70,
-                height: 100,
-                marginRight: 10,
-              }
-            ]}
-          >
+          </View>
+          <View>
             <Image source={facebookLogo} style={{width: 70, height: 120}}/>
-          </Pressable>
+          </View>
         </View>
 
         <View style={{flexDirection: 'row', marginTop: 20, paddingHorizontal:80}}>
@@ -94,7 +61,7 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#f0f0f0',
     paddingHorizontal: 20,
     paddingVertical: 150,
   },
