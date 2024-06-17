@@ -5,14 +5,21 @@ const appleLogo = require('./assets/apple.png');
 const googleLogo = require('./assets/google.png');
 const facebookLogo = require('./assets/facebook.png');
 
+export let exportUsername = '';
+export let exportEmail = '';
 
 export default function SignUp({ navigation }) {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
 
   const handleSignUp = () => {
+    exportUsername = username;
+    exportEmail = email;
+
     navigation.navigate('Home Page');
   };
+
+  
 
   return(
     <View style={styles.container}>
@@ -21,8 +28,8 @@ export default function SignUp({ navigation }) {
         <Text style={{fontSize:'14px', fontFamily:'Poppins', opacity:0.4, marginBottom: 30}}>Let's log in.Apply to jobs!</Text>
         
         <View >
-          <TextInput style={styles.textBox} placeholder='Name'/> 
-          <TextInput style={styles.textBox} placeholder='Email'/>
+          <TextInput style={styles.textBox} placeholder='Name' value={username} onChangeText={(username) => setName(username)}/> 
+          <TextInput style={styles.textBox} placeholder='Email' value={email} onChangeText={(email) => setEmail(email)}/>
         </View>
 
         <View style={styles.loginButton}>
@@ -82,3 +89,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+

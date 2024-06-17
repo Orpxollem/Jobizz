@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Image, FlatList, Pressable, TouchableOpacity } from 'react-native';
 import { Badge, Icon } from 'react-native-elements';
+import { exportUsername, exportEmail } from './signUp';
 
 const cardData = [
   { id: '1', cardAmount: '$180,000', backgroundColor: '#1a73e8', jobTitle: 'Software Engineer', companyName: 'Facebook', location: 'Accra, Ghana', logo: require('./assets/facebook.png') },
@@ -63,8 +64,8 @@ export default function HomeScreen(){
 
             <View style={styles.header}>
               <View style={{fontFamily: 'Poppins',}}>
-                  <Text style={{fontSize: 30, color:'#0D0D26',fontWeight: 700}}>Melvin King</Text>
-                  <Text style={{fontSize:20, color:'#95969D', fontWeight: 400}}>mello@gmail.com</Text>
+                  <Text style={{fontSize: 30, color:'#0D0D26',fontWeight: 700}}>{exportUsername}</Text>
+                  <Text style={{fontSize:20, color:'#95969D', fontWeight: 400}}>{exportEmail}</Text>
               </View>
               <View>
                   <Image source={require('./assets/profileImage.png')}/>
