@@ -1,26 +1,62 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, FlatList, Pressable } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, FlatList, Pressable, TouchableOpacity } from 'react-native';
 import { Badge, Icon } from 'react-native-elements';
 
-const profileImage = require('./assets/profileImage.png');
-const slider = require('./assets/slider.png');
-// const profileImage = require('./assets/profileImage.png');
-// const profileImage = require('./assets/profileImage.png');
-// const profileImage = require('./assets/profileImage.png');
+const cardData = [
+  { id: '1', cardAmount: '$180,000', backgroundColor: '#1a73e8', jobTitle: 'Software Engineer', companyName: 'Facebook', location: 'Accra, Ghana', logo: require('./assets/facebook.png') },
+  { id: '2', cardAmount: '$160,000', backgroundColor: '#34A853', jobTitle: 'System Administrator', companyName: 'Google', location: 'Accra, Ghana', logo: require('./assets/google.png') },
+]
 
+const jobList = [
+  {id: '1', jobTitle: 'Jr Executive', companyName: 'Burger King', location: 'Los Angeles, US', amount: '$96,000/y' , logo: require('./assets/burger-king.png')},
+  {id: '2', jobTitle: 'Product Manager', companyName: 'Beats', location: 'Florida, US', amount: '$84,000/y' , logo: require('./assets/beats.png')},
+  {id: '3', jobTitle: 'Product Manager', companyName: 'Facebook', location: 'Florida, US', amount: '$86,000/y' , logo: require('./assets/homefacebook.png')},
+];
+
+const Card = ({ cardAmount, backgroundColor, jobTitle, companyName, location, logo }) => {
+
+  return (
+    <View style={[styles.cardContainer, { backgroundColor }]}>
+      <View style={styles.rowAlign}>
+        <View style={{marginTop: -5}}>
+          <TextInput editable={false} style={{backgroundColor:'white', height:46, width: 48, borderRadius:10}}/>
+          <Image source={logo} style={{width: 50, height: 79, marginRight: 10, marginTop: -59}}/>
+        </View>
+        <View style={{marginTop: -5}}>
+          <Text style={styles.job}>{jobTitle}</Text>
+          <Text style={styles.company}>{companyName}</Text>
+        </View>
+      </View>
+      <View style={styles.cardRowAlign}>
+        <Text style={{color:'white'}}>{cardAmount}</Text>
+        <Text style={{color:'white'}}>{location}</Text>
+      </View>
+    </View>
+  );
+};
+
+const Joblist = ({ jobTitle, companyName, location, amount, logo }) => {
+  return(
+    <TouchableOpacity style={styles.jobs}>
+      <View style={{marginRight:15}}>
+        <Image source={logo}/>
+      </View>
+      <View>
+      <View style={styles.jobRowAlign}>
+        <Text style={{fontWeight:'bold', fontSize: 14}}>{jobTitle}</Text>
+        <Text style={{fontWeight:'bold', fontSize: 14}}>{amount}</Text>
+      </View>
+      <View style={styles.jobRowAlign}>
+        <Text style={{fontSize: 13, color:'#95969D', fontWeight: 600}}>{companyName}</Text>
+        <Text style={{fontSize: 13, color:'#95969D', fontWeight: 600}}>{location}</Text>
+      </View>
+      </View>
+    </TouchableOpacity>
+
+  )
+};
 
 export default function HomeScreen(){
-
-  const cardData = [
-    { id: '1', cardNumber: '1234567890129999', backgroundColor: '#1a73e8' },
-    { id: '2', cardNumber: '2345678901234567', backgroundColor: '#c2185b' },
-    { id: '3', cardNumber: '3456789012345678', backgroundColor: '#00796b' },
-    { id: '4', cardNumber: '4567890123456789', backgroundColor: '#5d4037' },
-    { id: '5', cardNumber: '5678901234567890', backgroundColor: '#7b1fa2' },
-    { id: '6', cardNumber: '6789012345678901', backgroundColor: '#303f9f' },
-    { id: '7', cardNumber: '7890123456789012', backgroundColor: '#0288d1' },
-    { id: '8', cardNumber: '8901234567890123', backgroundColor: '#c2185b' },
-  ];
 
     return(
         <View style={styles.container}>
@@ -31,7 +67,7 @@ export default function HomeScreen(){
                   <Text style={{fontSize:20, color:'#95969D', fontWeight: 400}}>mello@gmail.com</Text>
               </View>
               <View>
-                  <Image source={profileImage}/>
+                  <Image source={require('./assets/profileImage.png')}/>
                   <Badge value='' status='error' containerStyle={{position:'absolute', right:1, top:7, backgroundColor:'white', borderRadius:10, padding:3}}/>
               </View>            
             </View>
@@ -47,13 +83,13 @@ export default function HomeScreen(){
               <View>
                 <Pressable>
                   <TextInput editable={false} style={{backgroundColor:'#ECECE9', height:46, width: 48, borderRadius:10}}/>
-                  <Image source={slider} style={{marginTop: -38, height: 30, marginLeft:11}}/>
+                  <Image source={require('./assets/slider.png')} style={{marginTop: -38, height: 30, marginLeft:11}}/>
                 </Pressable>
               </View>
             </View>
 
             <View style={styles.rowAlign}>
-              <Text style={{fontSize: 20, color:'#0D0D26', fontWeight:'bold'}}>Featured Jobs</Text>
+              <Text style={{fontSize: 18, color:'#0D0D26', fontWeight:'bold'}}>Featured Jobs</Text>
               <Text style={{fontSize: 14, color:'#95969D', fontWeight:400, marginTop:6}}>See All</Text>
             </View>
 
@@ -62,6 +98,36 @@ export default function HomeScreen(){
                 data={cardData}
                 horizontal
                 showsHorizontalScrollIndicator={false}
+                renderItem={({ item }) => (
+                  <Card cardAmount={item.cardAmount} 
+                  backgroundColor={item.backgroundColor}
+                  jobTitle={item.jobTitle}
+                  companyName={item.companyName}
+                  location={item.location}
+                  logo={item.logo} />
+                )}
+              />
+            </View>
+
+            <View style={{marginTop: 30}}>
+              <View style={styles.rowAlign}>
+                <Text style={{fontSize: 18, color:'#0D0D26', fontWeight:'bold'}}>Popular Jobs</Text>
+                <Text style={{fontSize: 14, color:'#95969D', fontWeight:400, marginTop:6}}>See All</Text>
+              </View>
+            </View>
+
+            <View style={{marginTop: -15}}>
+              <FlatList
+                data={jobList}
+                vertical
+                renderItem={({ item }) => (
+                  <Joblist jobTitle={item.jobTitle}
+                  companyName={item.companyName}
+                  location={item.location}
+                  amount={item.amount}
+                  logo={item.logo}
+                  />
+                )}
               />
             </View>
 
@@ -75,6 +141,7 @@ const styles = StyleSheet.create({
       flex: 1,
       paddingHorizontal: 20,
       paddingVertical:100,
+      backgroundColor: '#f0f0f05',
     },
     header: {
       flexDirection: 'row',
@@ -100,6 +167,53 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       marginTop: 10,
       marginBottom: 25,
-    }
+    },
+    cardContainer: {
+      borderRadius: 20,
+      padding: 20,
+      width: 300,  
+      height: 190, 
+      justifyContent: 'space-between',
+      alignItems: 'flex-start',
+      marginHorizontal: 10,
+    },
+    job: {
+      color: '#fff',
+      fontSize: 20,
+      fontWeight: 'bold', 
+      font: 'Poppins',
+      marginBottom: 5,
+    },
+    company: {
+      color: '#fff',
+      fontSize: 14,
+      font: 'Poppins', 
+    },
+    cardAmount: {
+      color: '#fff',
+      fontSize: 16,
+      marginTop: 5,  
+      letterSpacing: 2,
+    },
+    cardRowAlign: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    jobs: {
+      flexDirection: 'row',
+      marginTop: 10,
+      marginBottom: 10,
+      padding:20,
+      height: 80,
+      backgroundColor: '#FFFFFF',
+      borderRadius: 20,
+    }, 
+    jobRowAlign: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '90%',
+      marginBottom:5
+    },
   });
   
