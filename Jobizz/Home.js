@@ -1,18 +1,178 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Image, FlatList, Pressable, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Image, FlatList, Pressable, TouchableOpacity, ScrollView } from 'react-native';
 import { Badge, Icon } from 'react-native-elements';
 import { exportUsername, exportEmail } from './signUp';
 
+
 const cardData = [
-  { id: '1', cardAmount: '$180,000', backgroundColor: '#1a73e8', jobTitle: 'Software Engineer', companyName: 'Facebook', location: 'Accra, Ghana', logo: require('./assets/facebook.png') },
-  { id: '2', cardAmount: '$160,000', backgroundColor: '#34A853', jobTitle: 'System Administrator', companyName: 'Google', location: 'Accra, Ghana', logo: require('./assets/google.png') },
-]
+  {
+    id: '1',
+    cardAmount: '$180,000',
+    backgroundColor: '#1a73e8',
+    jobTitle: 'Software Engineer',
+    companyName: 'Facebook',
+    location: 'Accra, Ghana',
+    logo: require('./assets/cardfacebook.png')
+  },
+  {
+    id: '2',
+    cardAmount: '$160,000',
+    backgroundColor: '#34A853',
+    jobTitle: 'System Administrator',
+    companyName: 'Google',
+    location: 'Accra, Ghana',
+    logo: require('./assets/cardgoogle.png')
+  },
+  {
+    id: '3',
+    cardAmount: '$170,000',
+    backgroundColor: '#ff9900',
+    jobTitle: 'Data Scientist',
+    companyName: 'Amazon',
+    location: 'Accra, Ghana',
+    logo: require('./assets/amazon.png')
+  },
+  {
+    id: '4',
+    cardAmount: '$155,000',
+    backgroundColor: '#0e76a8',
+    jobTitle: 'Product Manager',
+    companyName: 'LinkedIn',
+    location: 'Accra, Ghana',
+    logo: require('./assets/linkedin.png')
+  },
+  {
+    id: '5',
+    cardAmount: '$165,000',
+    backgroundColor: '#ff0000',
+    jobTitle: 'UX Designer',
+    companyName: 'YouTube',
+    location: 'Accra, Ghana',
+    logo: require('./assets/youtube.png')
+  },
+  {
+    id: '17',
+    cardAmount: '$180,000',
+    backgroundColor: '#c13584',
+    jobTitle: 'Data Analyst',
+    companyName: 'Instagram',
+    location: 'Accra, Ghana',
+    logo: require('./assets/ig.png')
+  },
+  {
+    id: '7',
+    cardAmount: '$140,000',
+    backgroundColor: '#1db954',
+    jobTitle: 'DevOps Engineer',
+    companyName: 'Spotify',
+    location: 'Accra, Ghana',
+    logo: require('./assets/spotify.png')
+  },
+  {
+    id: '8',
+    cardAmount: '$175,000',
+    backgroundColor: '#ff4500',
+    jobTitle: 'Backend Developer',
+    companyName: 'Reddit',
+    location: 'Accra, Ghana',
+    logo: require('./assets/reddit.png')
+  },
+  {
+    id: '9',
+    cardAmount: '$160,000',
+    backgroundColor: '#d1cd00',
+    jobTitle: 'Mobile Developer',
+    companyName: 'Snapchat',
+    location: 'Accra, Ghana',
+    logo: require('./assets/snapchat.png')
+  },
+  {
+    id: '10',
+    cardAmount: '$145,000',
+    backgroundColor: '#5865f2',
+    jobTitle: 'Security Analyst',
+    companyName: 'Discord',
+    location: 'Accra, Ghana',
+    logo: require('./assets/discord.png')
+  },
+];
+
 
 const jobList = [
-  {id: '1', jobTitle: 'Jr Executive', companyName: 'Burger King', location: 'Los Angeles, US', amount: '$96,000/y' , logo: require('./assets/burger-king.png')},
-  {id: '2', jobTitle: 'Product Manager', companyName: 'Beats', location: 'Florida, US', amount: '$84,000/y' , logo: require('./assets/beats.png')},
-  {id: '3', jobTitle: 'Product Manager', companyName: 'Facebook', location: 'Florida, US', amount: '$86,000/y' , logo: require('./assets/homefacebook.png')},
+  {
+    id: '1',
+    jobTitle: 'Jr Executive',
+    companyName: 'Burger King',
+    location: 'Los Angeles, US',
+    amount: '$96,000/y',
+    logo: require('./assets/burger-king.png')
+  },
+  {
+    id: '2',
+    jobTitle: 'Product Manager',
+    companyName: 'Beats',
+    location: 'Florida, US',
+    amount: '$84,000/y',
+    logo: require('./assets/beats.png')
+  },
+  {
+    id: '3',
+    jobTitle: 'Product Manager',
+    companyName: 'Facebook',
+    location: 'Florida, US',
+    amount: '$86,000/y',
+    logo: require('./assets/jobsfacebook.png')
+  },
+  {
+    id: '4',
+    jobTitle: 'Software Engineer',
+    companyName: 'Google',
+    location: 'Mountain View, US',
+    amount: '$120,000/y',
+    logo: require('./assets/jobsgoogle.png')
+  },
+  {
+    id: '5',
+    jobTitle: 'Data Scientist',
+    companyName: 'Amazon',
+    location: 'Seattle, US',
+    amount: '$110,000/y',
+    logo: require('./assets/jobsamazon.png')
+  },
+  {
+    id: '6',
+    jobTitle: 'UX Designer',
+    companyName: 'Apple',
+    location: 'Cupertino, US',
+    amount: '$105,000/y',
+    logo: require('./assets/jobsapple.png')
+  },
+  {
+    id: '7',
+    jobTitle: 'Backend Developer',
+    companyName: 'Twitter',
+    location: 'San Francisco, US',
+    amount: '$115,000/y',
+    logo: require('./assets/twitter.png')
+  },
+  {
+    id: '8',
+    jobTitle: 'DevOps Engineer',
+    companyName: 'Microsoft',
+    location: 'Redmond, US',
+    amount: '$125,000/y',
+    logo: require('./assets/microsoft.png')
+  },
+  {
+    id: '9',
+    jobTitle: 'Network Engineer',
+    companyName: 'Cisco',
+    location: 'San Jose, US',
+    amount: '$118,000/y',
+    logo: require('./assets/cisco.png')
+  },
 ];
+
 
 const Card = ({ cardAmount, backgroundColor, jobTitle, companyName, location, logo }) => {
 
@@ -20,8 +180,8 @@ const Card = ({ cardAmount, backgroundColor, jobTitle, companyName, location, lo
     <View style={[styles.cardContainer, { backgroundColor }]}>
       <View style={styles.rowAlign}>
         <View style={{marginTop: -5}}>
-          <TextInput editable={false} style={{backgroundColor:'white', height:46, width: 48, borderRadius:10}}/>
-          <Image source={logo} style={{width: 50, height: 79, marginRight: 10, marginTop: -59}}/>
+          <TextInput editable={false} style={{backgroundColor:'white', height:50, width: 50, borderRadius:10}}/>
+          <Image source={logo} style={{width: 50, height: 50, marginRight: 10, marginTop: -50}}/>
         </View>
         <View style={{marginTop: -5}}>
           <Text style={styles.job}>{jobTitle}</Text>
@@ -89,6 +249,7 @@ export default function HomeScreen(){
               </View>
             </View>
 
+            <ScrollView>
             <View style={styles.rowAlign}>
               <Text style={{fontSize: 18, color:'#0D0D26', fontWeight:'bold'}}>Featured Jobs</Text>
               <Text style={{fontSize: 14, color:'#95969D', fontWeight:400, marginTop:6}}>See All</Text>
@@ -132,6 +293,8 @@ export default function HomeScreen(){
               />
             </View>
 
+            </ScrollView>
+            
             
         </View>
     )
